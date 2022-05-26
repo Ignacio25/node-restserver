@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { body } = require('express-validator');
 const { getUsers, postUser, putUser, deleteUser } = require('../controllers/user.controller');
-const { isValidRole, existEmail, existUserById, convertToMongoId } = require('../helpers/db-validators');
+const { isValidRole, existEmail, existUserById } = require('../helpers/db-validators');
 
 const {
     validarCampos,

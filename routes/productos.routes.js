@@ -1,13 +1,13 @@
 const { Router } = require('express');
 const { body, param } = require('express-validator');
 const { 
-    getCategorias, 
-    getCategoriaById, 
-    createCategoria, 
-    updateCategoria, 
-    deleteCategoria 
-} = require('../controllers/categoria.controller');
-const { existCategoria } = require('../helpers/db-validators');
+    getProductos,
+    createProducto,
+    getProducto,
+    updateProducto,
+    deleteProducto 
+} = require('../controllers/producto.controller');
+const { existProducto, existCategoria } = require('../helpers/db-validators');
 const {
     validarCampos, 
     validarJWT,
@@ -16,34 +16,36 @@ const {
 
 const router = Router();
 
-router.get('/', getCategorias);
+router.get('/', getProductos);
 
 router.get('/:id', [
     param('id','No es un id valido').isMongoId(),
-    param('id').custom( existCategoria ),
+    param('id').custom( existProducto ),
     validarCampos
-] ,getCategoriaById );
+] ,getProducto );
 
 router.post('/', [
     validarJWT,
     body('nombre','Nombre es obligatorio').not().isEmpty(),
+    body('categoria').custom( existCategoria),
     validarCampos
-],createCategoria );
+],createProducto );
 
 router.put('/:id', [
     validarJWT,
     param('id','No es un id valido').isMongoId(),
-    param('id').custom( existCategoria ),
+    param('id').custom( existProducto ),
     body('nombre','Nombre es obligatorio').not().isEmpty(),
+    body('categoria').custom( existCategoria),
     validarCampos
-],updateCategoria );
+],updateProducto );
 
 router.delete('/:id', [
     validarJWT,
     param('id','No es un id valido').isMongoId(),
-    param('id').custom( existCategoria ),
+    param('id').custom( existProducto ),
     esAdminRole,
     validarCampos
-],deleteCategoria );
+],deleteProducto );
 
 module.exports = router;

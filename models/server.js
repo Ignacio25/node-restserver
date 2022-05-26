@@ -11,7 +11,9 @@ class Server {
         this.paths = {
             auth:       '/api/auth',
             users:      '/api/users',
-            categorias: '/api/categorias'
+            categorias: '/api/categorias',
+            productos: '/api/productos',
+            buscar: '/api/buscar'
         }
 
         //Conectar a bbdd
@@ -39,6 +41,8 @@ class Server {
         this.app.use(this.paths.users, require('../routes/user.routes'));
         this.app.use(this.paths.auth, require('../routes/auth.routes'));
         this.app.use(this.paths.categorias, require('../routes/categorias.routes'));
+        this.app.use(this.paths.productos, require('../routes/productos.routes'));
+        this.app.use(this.paths.buscar, require('../routes/buscar.routes'));
     }
 
     listen() {
